@@ -19,7 +19,8 @@
     {
       "binding": "DB",
       "database_name": "next-auth-cloudflare-starter-db",
-      "database_id": "d2ef8c16-ac56-448a-ac25-b1490b920432"
+      "database_id": "d2ef8c16-ac56-448a-ac25-b1490b920432",
+      // "migrations_dir": "./drizzle/migrations"
     }
   ]
   /**
