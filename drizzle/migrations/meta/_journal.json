@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1749803645995,
+      "tag": "0000_robust_quasimodo",
+      "breakpoints": true
+    }
+  ]
+}
