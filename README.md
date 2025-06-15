@@ -147,16 +147,17 @@ bun run deploy
 
 1.  **`AUTH_URL`シークレットの設定**: デプロイ完了後に表示された本番 URL (`https://...workers.dev`) をコピーし、シークレットとして登録します。
 
-	```bash
-	openssl rand -base64 32
-	```
+    ```bash
+    openssl rand -base64 32
+    ```
 
 2.  **GitHub コールバック URL の更新**: GitHub の OAuth App 設定に戻り、**Authorization callback URL** を本番 URL に更新します。
 
-  - `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/github`
+- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/github`
 
 3.  **Google コールバック URL の更新**: Google の OAuth App 設定に戻り、**承認済みのリダイレクト URI** を本番 URL に更新します。
-  - `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/google`
+
+- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/google`
 
 これで全てのセットアップが完了です！
 
@@ -166,15 +167,14 @@ bun run deploy
 
 ```
 app/
-├── (public)/              # 誰でもアクセスできる公開ページ
+├── _components/           # 共通UIコンポーネント
 ├── (auth)/                # 認証が必須のページ
+├── (public)/              # 誰でもアクセスできる公開ページ
 ├── api/                   # APIルート (認証用など)
-├── components/            # 共通UIコンポーネント
 lib/
-├── auth.ts                # Auth.jsの設定
-└── ...
-middleware.ts              # 認証チェックを行うミドルウェア
-schema.sql                 # D1データベースのスキーマ
+└── auth.ts                # Auth.jsの設定
+drizzle/
+└── schema/adapter.ts      # Drizzle ORMのスキーマ定義
 ```
 
 ## 🤝 コントリビュート
