@@ -1,12 +1,23 @@
+import { auth } from "@/lib/auth";
+import Link from "next/link";
 import { SignIn, SignOut } from "../_components/auth/server/auth-buttons";
 
-export default function PublicPage() {
+export default async function PublicPage() {
+  const session = await auth();
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-4xl font-bold">PublicPage</h1>
       <p>LPなどのすべてのユーザーに公開するページ</p>
-      <SignIn />
-      <SignOut />
+      {session ? (
+        <>
+          <SignOut />
+          <Link href="/product">Product</Link>
+        </>
+      ) : (
+        <>
+          <SignIn />
+        </>
+      )}
     </div>
   );
 }
