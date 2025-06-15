@@ -1,4 +1,4 @@
-# Next-Auth-Cloudflare-Starter
+# NextAuth Cloudflare Starter
 
 Bun ランタイムを使用し、Cloudflare Workers と Cloudflare D1 データベースへのデプロイを前提とした Next.js のスターターテンプレートです。
 LP（公開ページ）と認証付きアプリページを分離し、ユーザー情報を Cloudflare D1 に永続化します。
@@ -24,6 +24,7 @@ LP（公開ページ）と認証付きアプリページを分離し、ユーザ
 - [TypeScript](https://www.typescriptlang.org/)
 - [Cloudflare Workers](https://workers.cloudflare.com/)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/)
+- [Drizzle ORM](https://orm.drizzle.team/)
 
 ---
 
