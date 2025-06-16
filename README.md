@@ -49,15 +49,7 @@ cd next-auth-cloudflare-starter
 bun install
 ```
 
-### 3. shadcn/ui のセットアップ
-
-shadcn/ui のコンポーネントを追加します。必要に応じて、追加したいコンポーネントを選択してください。
-
-```bash
-bunx shadcn-ui@latest add
-```
-
-### 4. Cloudflare D1 データベースの作成
+### 3. Cloudflare D1 データベースの作成
 
 D1 データベースを作成します。
 ターミナルで以下のコマンドを実行してください。
@@ -67,7 +59,7 @@ D1 データベースを作成します。
 npx wrangler d1 create <your-db-name>
 ```
 
-### 5. データベーススキーマの適用
+### 4. データベーススキーマの適用
 
 作成した D1 データベースに、Auth.js が必要とするテーブルを作成します。
 
@@ -75,7 +67,7 @@ npx wrangler d1 create <your-db-name>
 npx wrangler d1 migrations apply <your-db-name> --local
 ```
 
-### 6. 環境変数の設定
+### 5. 環境変数の設定
 
 まず、`.env.local.example`ファイルをコピーして`.env.local`を作成します。
 
@@ -92,11 +84,11 @@ cp .env.local.example .env.local
   ```
 
 - **`AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET`**: [GitHub OAuth App](https://github.com/settings/developers)を作成して取得した値を設定します。
-  - **Authorization callback URL**: `http://localhost:8788/api/auth/callback/github`
+  - **Authorization callback URL**: `http://localhost:3000/api/auth/callback/github`
 - **`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`**: [OAuth 2.0 クライアント ID](https://console.cloud.google.com/apis/credentials) を作成して取得した値を設定します。
-  - **承認済みのリダイレクト URI**: `http://localhost:8788/api/auth/callback/google`
+  - **承認済みのリダイレクト URI**: `http://localhost:3000/api/auth/callback/google`
 
-### 7. 開発サーバーの起動
+### 6. 開発サーバーの起動
 
 以下のコマンドで開発サーバーを起動します。
 
@@ -139,11 +131,11 @@ npx wrangler d1 migrations apply <your-db-name> --remote
 `.env.local`の内容を Cloudflare のシークレットとして登録します。
 
 ```bash
-bunx wrangler secret put AUTH_SECRET
-bunx wrangler secret put AUTH_GITHUB_ID
-bunx wrangler secret put AUTH_GITHUB_SECRET
-bunx wrangler secret put AUTH_GOOGLE_ID
-bunx wrangler secret put AUTH_GOOGLE_SECRET
+npx wrangler secret put AUTH_SECRET
+npx wrangler secret put AUTH_GITHUB_ID
+npx wrangler secret put AUTH_GITHUB_SECRET
+npx wrangler secret put AUTH_GOOGLE_ID
+npx wrangler secret put AUTH_GOOGLE_SECRET
 ```
 
 ### 4. デプロイの実行
