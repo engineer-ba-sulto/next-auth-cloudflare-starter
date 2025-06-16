@@ -11,20 +11,22 @@ LP（公開ページ）と認証付きアプリページを分離し、ユーザ
 - **LP & アプリページの分離**: Route Groups (`(public)`と`(auth)`)を使用して、公開ページと認証必須ページを明確に分離。
 - **認証機能**: Auth.js (NextAuth.js v5)と`@auth/drizzle-adapter`を使用。
 - **Cloudflare への最適化**: Workers と D1 の連携を前提とした設定。
-- **スタイリング**: Tailwind CSS を導入済み。
+- **スタイリング**: Tailwind CSS と shadcn/ui を導入済み。
+- **UI コンポーネント**: shadcn/ui で構築された再利用可能なコンポーネント群。
 - **静的解析**: TypeScript と ESLint を標準装備。
 
 ## 💻 技術スタック
 
 - [Bun](https://bun.sh/)
-- [Next.js](https://nextjs.org/) (App Router)
-- [Auth.js (NextAuth.js)](https://authjs.dev/)
-- [React](https://react.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Cloudflare Workers](https://workers.cloudflare.com/)
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/) (App Router)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Auth.js (NextAuth.js)](https://authjs.dev/)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/)
 - [Drizzle ORM](https://orm.drizzle.team/)
+- [Cloudflare Workers](https://workers.cloudflare.com/)
 
 ---
 
@@ -47,7 +49,15 @@ cd next-auth-cloudflare-starter
 bun install
 ```
 
-### 3. Cloudflare D1 データベースの作成
+### 3. shadcn/ui のセットアップ
+
+shadcn/ui のコンポーネントを追加します。必要に応じて、追加したいコンポーネントを選択してください。
+
+```bash
+bunx shadcn-ui@latest add
+```
+
+### 4. Cloudflare D1 データベースの作成
 
 D1 データベースを作成します。
 ターミナルで以下のコマンドを実行してください。
@@ -57,7 +67,7 @@ D1 データベースを作成します。
 npx wrangler d1 create <your-db-name>
 ```
 
-### 4. データベーススキーマの適用
+### 5. データベーススキーマの適用
 
 作成した D1 データベースに、Auth.js が必要とするテーブルを作成します。
 
@@ -65,7 +75,7 @@ npx wrangler d1 create <your-db-name>
 npx wrangler d1 migrations apply <your-db-name> --local
 ```
 
-### 5. 環境変数の設定
+### 6. 環境変数の設定
 
 まず、`.env.local.example`ファイルをコピーして`.env.local`を作成します。
 
@@ -86,7 +96,7 @@ cp .env.local.example .env.local
 - **`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`**: [OAuth 2.0 クライアント ID](https://console.cloud.google.com/apis/credentials) を作成して取得した値を設定します。
   - **承認済みのリダイレクト URI**: `http://localhost:8788/api/auth/callback/google`
 
-### 6. 開発サーバーの起動
+### 7. 開発サーバーの起動
 
 以下のコマンドで開発サーバーを起動します。
 
