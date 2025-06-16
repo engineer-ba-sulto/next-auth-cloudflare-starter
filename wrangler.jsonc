@@ -18,8 +18,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "next-auth-cloudflare-starter-db",
-      "database_id": "d2ef8c16-ac56-448a-ac25-b1490b920432",
+      "database_name": "<your-db-name>",
+      "database_id": "<your-db-id>",
       "migrations_dir": "./drizzle/migrations"
     }
   ]
