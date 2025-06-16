@@ -1,6 +1,6 @@
 # NextAuth Cloudflare Starter
 
-Bun ランタイムを使用し、Cloudflare Workers と Cloudflare D1 データベースへのデプロイを前提とした Next.js のスターターテンプレートです。
+Bun ランタイムを使用し、Cloudflare Workers と Cloudflare D1 データベースへのデプロイを前提とした Next.js のスターターテンプレートです。  
 LP（公開ページ）と認証付きアプリページを分離し、ユーザー情報を Cloudflare D1 に永続化します。
 
 ## ✨ 特徴
@@ -51,7 +51,7 @@ bun install
 
 ### 3. Cloudflare D1 データベースの作成
 
-D1 データベースを作成します。
+D1 データベースを作成します。  
 ターミナルで以下のコマンドを実行してください。
 
 ```bash
@@ -59,7 +59,24 @@ D1 データベースを作成します。
 npx wrangler d1 create <your-db-name>
 ```
 
-### 4. データベーススキーマの適用
+### 4. `wrangler.jsonc` の設定
+
+D1 データベースを作成すると、設定情報が表示されます。  
+表示された設定情報から`"database_name": "<your-db-name>"`と`"database_id": "<your-db-id>"`をコピーします。  
+`wrangler.jsonc`を開き、DB のコピーした情報を貼り付けます。
+
+```jsonc:wrangler.jsonc
+"d1_databases": [
+	{
+		"binding": "DB",
+		"database_name": "<your-db-name>",
+		"database_id": "<your-db-id>",
+		"migrations_dir": "./drizzle/migrations"
+	}
+]
+```
+
+### 5. データベーススキーマの適用
 
 作成した D1 データベースに、Auth.js が必要とするテーブルを作成します。
 
@@ -67,7 +84,7 @@ npx wrangler d1 create <your-db-name>
 npx wrangler d1 migrations apply <your-db-name> --local
 ```
 
-### 5. 環境変数の設定
+### 6. ローカル環境の環境変数の設定
 
 まず、`.env.local.example`ファイルをコピーして`.env.local`を作成します。
 
@@ -80,7 +97,7 @@ cp .env.local.example .env.local
 - **`AUTH_SECRET`**:以下のコマンドで生成した値を設定します。
 
   ```bash
-  openssl rand -base64 32
+  npx auth secret
   ```
 
 - **`AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET`**: [GitHub OAuth App](https://github.com/settings/developers)を作成して取得した値を設定します。
@@ -88,7 +105,7 @@ cp .env.local.example .env.local
 - **`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`**: [OAuth 2.0 クライアント ID](https://console.cloud.google.com/apis/credentials) を作成して取得した値を設定します。
   - **承認済みのリダイレクト URI**: `http://localhost:3000/api/auth/callback/google`
 
-### 6. 開発サーバーの起動
+### 7. 開発サーバーの起動
 
 以下のコマンドで開発サーバーを起動します。
 
@@ -111,20 +128,21 @@ bun run dev
 npx wrangler d1 migrations apply <your-db-name> --remote
 ```
 
-### 2. `wrangler.jsonc` の設定
+### 2. 本番環境の環境変数の設定
 
-`wrangler.jsonc`を開き、あなたの本番環境に DB の情報を設定します。
+1.  **`AUTH_URL`シークレットの設定**: デプロイ完了後に表示された本番 URL (`https://...workers.dev`) をコピーし、シークレットとして登録します。
 
-```jsonc:wrangler.jsonc
-"d1_databases": [
-	{
-		"binding": "DB",
-		"database_name": "<your-db-name>",
-		"database_id": "<your-db-id>",
-		"migrations_dir": "./drizzle/migrations"
-	}
-]
-```
+    ```bash
+    npx auth secret
+    ```
+
+2.  **GitHub コールバック URL の更新**: GitHub の OAuth App 設定に戻り、**Authorization callback URL** を本番 URL に更新します。
+
+- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/github`
+
+3.  **Google コールバック URL の更新**: Google の OAuth App 設定に戻り、**承認済みのリダイレクト URI** を本番 URL に更新します。
+
+- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/google`
 
 ### 3. 本番環境のシークレット設定
 
@@ -145,22 +163,6 @@ npx wrangler secret put AUTH_GOOGLE_SECRET
 ```bash
 bun run deploy
 ```
-
-### 5. デプロイ後の最終設定
-
-1.  **`AUTH_URL`シークレットの設定**: デプロイ完了後に表示された本番 URL (`https://...workers.dev`) をコピーし、シークレットとして登録します。
-
-    ```bash
-    openssl rand -base64 32
-    ```
-
-2.  **GitHub コールバック URL の更新**: GitHub の OAuth App 設定に戻り、**Authorization callback URL** を本番 URL に更新します。
-
-- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/github`
-
-3.  **Google コールバック URL の更新**: Google の OAuth App 設定に戻り、**承認済みのリダイレクト URI** を本番 URL に更新します。
-
-- `https://your-worker-name.your-subdomain.workers.dev/api/auth/callback/google`
 
 これで全てのセットアップが完了です！
 
