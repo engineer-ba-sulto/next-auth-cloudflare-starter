@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import Header from "./_components/auth/header";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={`${notoSansJP.className} antialiased`}>{children}</body>
+      <body className={`${notoSansJP.className} antialiased`}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
