@@ -1,11 +1,23 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "@/lib/auth";
 
 export function SignIn() {
-  return <button onClick={() => signIn()}>Sign In</button>;
+  return (
+    <Button
+      variant="outline"
+      onClick={() => signIn(undefined, { redirectTo: "/product" })}
+    >
+      サインイン
+    </Button>
+  );
 }
 
 export function SignOut() {
-  return <button onClick={() => signOut()}>Sign Out</button>;
+  return (
+    <Button variant="outline" onClick={() => signOut()}>
+      サインアウト
+    </Button>
+  );
 }

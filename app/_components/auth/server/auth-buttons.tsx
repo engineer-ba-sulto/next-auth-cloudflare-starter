@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "@/lib/auth";
 
 export function SignIn() {
@@ -5,10 +6,12 @@ export function SignIn() {
     <form
       action={async () => {
         "use server";
-        await signIn();
+        await signIn(undefined, { redirectTo: "/product" });
       }}
     >
-      <button type="submit">Sign in</button>
+      <Button variant="outline" type="submit" className="w-full">
+        サインイン
+      </Button>
     </form>
   );
 }
@@ -21,7 +24,9 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <button type="submit">Sign Out</button>
+      <Button variant="outline" type="submit">
+        サインアウト
+      </Button>
     </form>
   );
 }
