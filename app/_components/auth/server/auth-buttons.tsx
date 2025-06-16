@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "@/lib/auth";
 
 export function SignIn() {
@@ -8,7 +9,9 @@ export function SignIn() {
         await signIn();
       }}
     >
-      <button type="submit">Sign in</button>
+      <Button variant="outline" type="submit">
+        Sign in
+      </Button>
     </form>
   );
 }
@@ -21,7 +24,9 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <button type="submit">Sign Out</button>
+      <Button variant="outline" type="submit">
+        Sign Out
+      </Button>
     </form>
   );
 }
