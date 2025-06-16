@@ -6,11 +6,11 @@ export function SignIn() {
     <form
       action={async () => {
         "use server";
-        await signIn();
+        await signIn(undefined, { redirectTo: "/product" });
       }}
     >
-      <Button variant="outline" type="submit">
-        Sign in
+      <Button variant="outline" type="submit" className="w-full">
+        サインイン
       </Button>
     </form>
   );
@@ -25,7 +25,7 @@ export function SignOut() {
       }}
     >
       <Button variant="outline" type="submit">
-        Sign Out
+        サインアウト
       </Button>
     </form>
   );

@@ -5,8 +5,11 @@ import { signIn, signOut } from "@/lib/auth";
 
 export function SignIn() {
   return (
-    <Button variant="outline" onClick={() => signIn()}>
-      Sign In
+    <Button
+      variant="outline"
+      onClick={() => signIn(undefined, { redirectTo: "/product" })}
+    >
+      サインイン
     </Button>
   );
 }
@@ -14,7 +17,7 @@ export function SignIn() {
 export function SignOut() {
   return (
     <Button variant="outline" onClick={() => signOut()}>
-      Sign Out
+      サインアウト
     </Button>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import UserAvatar from "./_components/user-avatar";
 
 export default function Header() {
   return (
@@ -8,6 +9,7 @@ export default function Header() {
           NextAuth Cloudflare Starter
         </Link>
       </div>
+      <UserAvatar />
     </header>
   );
 }
